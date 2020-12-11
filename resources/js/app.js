@@ -18,8 +18,15 @@ window.Vue = require('vue');
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+var Toasted = require('vue-toasted').default
+
+Vue.use(Toasted,{
+	iconPack : 'fontawesome'
+})
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('join_cart', require('./components/join_cart.vue').default);
+Vue.component('shop_item', require('./components/shop_item.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -27,6 +34,80 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+
 const app = new Vue({
     el: '#app',
+    data : {
+    	totalQty : '',
+        add_page : false,
+        items : {},
+        sum : '',
+        item_qty : ''
+    },
+    methods : {
+    	addQty(val){
+    		this.totalQty = val
+    	},
+        remove_item(val){
+            // console.log(val)
+            this.items[val['0']] = false
+            this.sum -= (val['1']) * (val['2'])
+            this.item_qty  --
+            // if(item_qty == 0){
+            //     item_qty = false
+            // }
+        },
+        plus(price){
+            this.sum += price
+        },
+        minus(price){
+            this.sum -= price
+        }
+    },
+    created(){
+        //右上角Qty
+        axios.post('/getQty')
+          .then((response)=> {
+            // console.log(response);
+            this.totalQty = response.data
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        //取得購物車項目
+        axios.post('/get_items')
+          .then((response)=> {
+            // console.log(response);
+            this.items = response.data
+          })
+          .catch(function (error) {
+            console.log(error);
+          });  
+        //取得總額
+        axios.post('/get_sum')
+          .then((response)=> {
+            // console.log(response);
+            this.sum = response.data
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        //取得商品數
+        axios.post('/get_itemqty')
+          .then((response)=> {
+            // console.log(response);
+            this.item_qty = response.data
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+    },
+    mounted(){
+        var url = window.location.href
+        var reg = RegExp(/books/);
+        if(reg.test(url)){
+            this.add_page = true
+        }
+    }
 });

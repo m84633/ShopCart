@@ -12,8 +12,23 @@
 */
 
 Route::get('/', function () {
-    return view('shop.shop');
-});
+    return redirect()->action('BooksController@index');
+})->name('index');
+//join_cart.vue
+Route::post('/add','BooksController@addToCart');
+
+Route::get('shopcart','BooksController@shopCart')->name('shopcart');
+//shop_item.vue
+Route::post('getQty','BooksController@getQty');
+Route::post('get_items','BooksController@get_items');
+Route::post('get_sum','BooksController@get_sum');
+Route::post('get_itemqty','BooksController@get_itemQty');
+Route::post('remove_item','BooksController@removeItem');
+Route::post('minus_one','BooksController@minus_one');
+
+Route::get('checkout','BooksController@checkout')->name('checkout');
+
+Route::resource('books','BooksController');
 
 Auth::routes();
 
