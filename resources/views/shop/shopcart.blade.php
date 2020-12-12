@@ -6,8 +6,11 @@
 
 
 @section('content')
-	<div class="container" style="margin-top: 70px">
-	  <div class="row">
+	<div>
+    <loading :active.sync="load"></loading>
+	</div>
+	<div v-if="!load"  class="container" style="margin-top: 70px">
+	  <div  class="row">
 
 	    <!--Grid column-->
 	    <div v-if="item_qty" class="col-lg-8">
@@ -16,7 +19,7 @@
 	      <div class="mb-3">
 	        <div class="pt-4 wish-list">
 	          {{-- @if($cart) --}}
-	          <h5 class="mb-4">購物車 (<span>@{{ item_qty }}</span> 件商品)</h5>
+	          <h5 v-cloak v-if="!load" class="mb-4">購物車 (<span>@{{ item_qty }}</span> 件商品)</h5>
 	          <shop_item @minus_one="minus" @plus_one="plus"  @remove_item="remove_item(arguments)" v-for="(item,index) in items" v-if="items[index]" :key=item.item.id v-bind="item.item" :qty="item.qty">
 	          </shop_item>
 	        </div>
@@ -29,7 +32,7 @@
 
 	      <!-- Card -->
 	      <div class="mb-3">
-	        <div class="pt-4">
+	        <div v-cloak class="pt-4">
 
 	          <h5 class="mb-3"><strong>總計</strong></h5>
 
@@ -60,10 +63,11 @@
 	    </div>
 	    <!--Grid column-->
 	    {{-- @else --}}
-	    	<h3 v-if="!item_qty">目前購物車暫無商品</h3>
+	    	<div v-cloak><h3 v-if="!item_qty">目前購物車暫無商品</h3></div>
 	    {{-- @endif --}}
 	  </div>
-	</div>	
+	</div>
+	
 @endsection
 @push('script')
 	<script src="{{ asset('js/app.js') }}"></script>

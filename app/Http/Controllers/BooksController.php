@@ -6,6 +6,7 @@ use App\Book;
 use App\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class BooksController extends Controller
 {
@@ -19,11 +20,22 @@ class BooksController extends Controller
         $books = Book::all();
         // $book = Book::where('id',1)->get();
         // dd($book);
+
+        // $a = session('cart');
+        // dd(serialize($a));
+
+        // return (string) Str::orderedUuid();
         return view('shop.shop',compact('books'));
     }
 
     public function checkout(){
-        return view('shop.checkout');
+        if(session('cart')){
+            $cart = session('cart');
+            // dd($cart);
+            return view('shop.checkout',compact('cart'));
+        }else{
+            return redirect('/');
+        }
     }
 
     public function addToCart(Request $request){
@@ -83,6 +95,13 @@ class BooksController extends Controller
     public function get_itemQty(){
         if(session('cart')){
             return count(session('cart')->items);
+        }
+    }
+
+    public function bought(){
+        if (session('status')){
+            session()->forget('status');
+            return 1;
         }
     }
 

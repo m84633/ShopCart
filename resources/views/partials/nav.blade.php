@@ -9,7 +9,7 @@
 		 				@if(isset($books))
 		                    <a v-if="add_page" href="{{ route('shopcart') }}" style="text-decoration: none;color: red" class="px-1">
 		                    	<i class="fas fa-cart-arrow-down"></i>
-		                    	<span v-show="totalQty" class="badge badge-light">@{{ totalQty }}</span>
+		                    	<span v-cloak v-show="totalQty" class="badge badge-light">@{{ totalQty }}</span>
 		                    	購物車
 		                    </a>
 	                    @else	                    

@@ -16,6 +16,7 @@ Route::get('/', function () {
 })->name('index');
 //join_cart.vue
 Route::post('/add','BooksController@addToCart');
+Route::post('/bought','BooksController@bought');
 
 Route::get('shopcart','BooksController@shopCart')->name('shopcart');
 //shop_item.vue
@@ -26,7 +27,11 @@ Route::post('get_itemqty','BooksController@get_itemQty');
 Route::post('remove_item','BooksController@removeItem');
 Route::post('minus_one','BooksController@minus_one');
 
+//checout
 Route::get('checkout','BooksController@checkout')->name('checkout');
+Route::post('checkout','OrdersController@checkout');
+Route::post('callback','OrdersController@callback');
+Route::get('redirect','OrdersController@redirect');
 
 Route::resource('books','BooksController');
 
