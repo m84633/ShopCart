@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light table-primary">
 	<div id="" class="container">
 		 	<a class="navbar-brand" href="{{ route('index') }}">
-		Bootstrap
+			<i>Book&nbsp;</i><strong>Shop</strong>
 		 	</a>
 		 	<div class="collapse navbar-collapse">
 		 		<ul class="navbar-nav ml-auto">

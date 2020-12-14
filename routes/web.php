@@ -35,6 +35,10 @@ Route::get('redirect','OrdersController@redirect');
 
 Route::resource('books','BooksController');
 
-Auth::routes();
+//admin
+Route::get('admin/login','Auth\LoginController@showLoginForm')->name('login');
+Route::post('admin/login','Auth\LoginController@login');
+Route::post('logout','Auth\LoginController@logout')->name('logout');
+Route::get('/orders','OrdersController@index');
+Route::delete('orders/{order}','OrdersController@destroy')->name('order.delete');
 
-Route::get('/home', 'HomeController@index')->name('home');

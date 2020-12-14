@@ -12,6 +12,12 @@ use \ECPay_PaymentMethod as ECPayMethod;
 
 class OrdersController extends Controller
 {
+
+	public function __construct(){
+		$this->middleware('auth');
+	}
+
+
     public function checkout(OrderRequest $request){
     	$cart = session('cart');
     	$order_id = str_replace("-","",substr((string)Str::orderedUuid(),0,20));
@@ -109,5 +115,15 @@ class OrdersController extends Controller
 		session()->put('status','感謝您的購買!!');
     	// return redirect('/books')->with('status','感謝您的購買!!');
     	return redirect('/books');
+    }
+
+    public function index(){
+    	$orders = Order::orderby('created_at')->get();
+    	return view('orders.home',compact('orders'));
+    }
+
+    public function destroy(Order $order){
+    	$order->delete();
+    	return redirect()->back();
     }
 }
