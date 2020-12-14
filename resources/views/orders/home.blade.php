@@ -32,7 +32,7 @@
 						<td class="align-middle">
 							{{ $order->paid == 1 ? '已付款':'尚未付款' }}
 						</td>
-						<td>{{ $order->created_at }}</td>
+						<td class="align-middle">{{ $order->created_at }}</td>
 						<td class="align-middle text-center"><a onclick="event.preventDefault();if(confirm('是否要刪除?')){document.getElementById('delete{{ $order->id }}').submit()}" href="#"><i class=" fas fa-trash-alt align-middle" style="color: FireBrick"></i></a></td>
 						<form id="delete{{ $order->id }}" method="post" style="display: none" action="{{ route('order.delete',$order->id) }}">
 							@csrf

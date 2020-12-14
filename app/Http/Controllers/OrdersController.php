@@ -14,7 +14,7 @@ class OrdersController extends Controller
 {
 
 	public function __construct(){
-		$this->middleware('auth');
+		$this->middleware('auth')->only(['index','destroy']);
 	}
 
 
@@ -45,10 +45,10 @@ class OrdersController extends Controller
 		        //基本參數(請依系統規劃自行調整)
 		        $MerchantTradeNo = $order_id ;
 		        // $obj->Send['ReturnURL']         = "https://16e41fc5331f.ngrok.io/callback" ;    //付款完成通知回傳的網址(localhost)
-		        $obj->Send['ReturnURL']         = "http:shop.airkim.tw/callback" ;    //付款完成通知回傳的網址
+		        $obj->Send['ReturnURL']         = "https://shop.airkim.tw/callback" ;    //付款完成通知回傳的網址
 		        $obj->Send['MerchantTradeNo']   = $MerchantTradeNo;                          //訂單編號
 		        // $obj->Send['ClientBackURL'] = "https://16e41fc5331f.ngrok.io/redirect" ; localhost
-		        $obj->Send['ClientBackURL'] = "http://shop.airkim.tw/redirect" ;
+		        $obj->Send['ClientBackURL'] = "https://shop.airkim.tw/redirect" ;
 		        $obj->Send['MerchantTradeDate'] = date('Y/m/d H:i:s');                       //交易時間
 		        $obj->Send['TotalAmount']       = $cart->totalPrice;                                      //交易金額
 		        $obj->Send['TradeDesc']         = "good to drink" ;                          //交易描述
