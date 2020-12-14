@@ -44,15 +44,19 @@ class OrdersController extends Controller
 
 		        //基本參數(請依系統規劃自行調整)
 		        $MerchantTradeNo = $order_id ;
-		        $obj->Send['ReturnURL']         = "https://16e41fc5331f.ngrok.io/callback" ;    //付款完成通知回傳的網址
+		        // $obj->Send['ReturnURL']         = "https://16e41fc5331f.ngrok.io/callback" ;    //付款完成通知回傳的網址(localhost)
+		        $obj->Send['ReturnURL']         = "http:shop.airkim.tw/callback" ;    //付款完成通知回傳的網址
 		        $obj->Send['MerchantTradeNo']   = $MerchantTradeNo;                          //訂單編號
-		        $obj->Send['ClientBackURL'] = "https://16e41fc5331f.ngrok.io/redirect" ;
+		        // $obj->Send['ClientBackURL'] = "https://16e41fc5331f.ngrok.io/redirect" ; localhost
+		        $obj->Send['ClientBackURL'] = "http://shop.airkim.tw/redirect" ;
 		        $obj->Send['MerchantTradeDate'] = date('Y/m/d H:i:s');                       //交易時間
 		        $obj->Send['TotalAmount']       = $cart->totalPrice;                                      //交易金額
 		        $obj->Send['TradeDesc']         = "good to drink" ;                          //交易描述
 		        $obj->Send['ChoosePayment']     = ECPayMethod::Credit ;              //付款方式:Credit
 		        $obj->Send['IgnorePayment']     = ECPayMethod::GooglePay ;           //不使用付款方式:GooglePay
-
+		        //測試卡號 : 4311-9522-2222-2222
+		        //測試安全碼 : 222
+		        //測試管理後台 : https://vendor-stage.ecpay.com.tw/User/LogOn_Step1
 		        //訂單的商品資料
 		       	foreach($cart->items as $item){
 			        array_push($obj->Send['Items'], array('Name' => $item['item']->name, 'Price' => $item['item']->price,
