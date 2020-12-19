@@ -25,6 +25,7 @@ class BooksController extends Controller
         // dd(serialize($a));
 
         // return (string) Str::orderedUuid();
+        // dd(json_encode(session('cart')));
         return view('shop.shop',compact('books'));
     }
 
@@ -73,34 +74,17 @@ class BooksController extends Controller
         $cart = Session::get('cart');
         return view('shop.shopcart',compact('cart'));
     }
-
-    public function getQty(){
+    
+    public function getCar(){
         if(session('cart')){
-            return session('cart')->totalQty;
-        }
-    }
-
-    public function get_items(){
-        if(session('cart')){
-            return session('cart')->items;
-        }
-    }
-
-    public function get_sum(){
-        if(session('cart')){
-            return session('cart')->totalPrice;
-        }
-    }
-
-    public function get_itemQty(){
-        if(session('cart')){
-            return count(session('cart')->items);
+            return json_encode(session('cart'));
         }
     }
 
     public function bought(){
         if (session('status')){
             session()->forget('status');
+            session()->save();
             return 1;
         }
     }

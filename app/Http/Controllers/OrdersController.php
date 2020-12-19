@@ -122,7 +122,7 @@ class OrdersController extends Controller
     }
 
     public function index(){
-    	$orders = Order::orderby('created_at')->get();
+    	$orders = Order::orderBy('created_at','desc')->get();
     	return view('orders.home',compact('orders'));
     }
 

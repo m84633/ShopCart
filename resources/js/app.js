@@ -59,32 +59,10 @@ const app = new Vue({
         //右上角Qty
         axios.post('/getQty')
           .then((response)=> {
-            this.totalQty = response.data
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-        //取得購物車項目
-        axios.post('/get_items')
-          .then((response)=> {
-            this.items = response.data
-          })
-          .catch(function (error) {
-            console.log(error);
-          });  
-        //取得總額
-        axios.post('/get_sum')
-          .then((response)=> {
-            this.sum = response.data
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-        //取得商品數
-        axios.post('/get_itemqty')
-          .then((response)=> {
-            // console.log(response);
-            this.item_qty = response.data
+            this.totalQty = response.data.totalQty
+            this.items = response.data.items
+            this.sum = response.data.totalPrice
+            this.item_qty = Object.keys(response.data.items).length
             this.load = false
           })
           .catch(function (error) {

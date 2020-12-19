@@ -64,6 +64,7 @@
           	  "pageLength": 10,
 		      "searching": true,
 		      "ordering": true,
+		      "order" : [5,'desc'],
 		      "info": false,
 		      "autoWidth": false,
 		      "responsive": true,
