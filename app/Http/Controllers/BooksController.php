@@ -74,8 +74,8 @@ class BooksController extends Controller
         $cart = Session::get('cart');
         return view('shop.shopcart',compact('cart'));
     }
-    
-    public function getCar(){
+
+    public function getCart(){
         if(session('cart')){
             return json_encode(session('cart'));
         }

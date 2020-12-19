@@ -13,7 +13,7 @@
             	<div class="row">
             		<div class="col-md-10" style="height: 140px">
 		                <h5>{{ name }}</h5>
-		                <p class="mb-3 text-muted text-uppercase small">{{ desc }}</p>
+		                <p class="mb-3 text-muted text-uppercase small">{{ describe }}</p>
 	               </div>
             	</div>
               
@@ -97,7 +97,8 @@
     },
     data(){
       return {
-        quantity : ''
+        quantity : '',
+        describe : ''
       }
     },
     watch : {
@@ -105,6 +106,16 @@
         immediate: true,
         handler(newValue,oldValue){
           this.quantity = this.qty
+        }
+      }, 
+      desc : {
+        immediate: true,
+        handler(newValue,oldValue){
+          if(this.desc.length >= 85){
+            this.describe = this.desc.substring(0,85)+' . . .'
+          }else{
+            this.describe = this.desc
+          }
         }
       }
       // qty(newVal){

@@ -23,8 +23,8 @@ Vue.component('shop_item', require('./components/shop_item.vue').default);
 
 
 
-Vue.config.debug = false;
-Vue.config.devtools = false;
+// Vue.config.debug = false;
+// Vue.config.devtools = false;
 
 const app = new Vue({
     el: '#app',
@@ -57,12 +57,14 @@ const app = new Vue({
     },
     created(){
         //右上角Qty
-        axios.post('/getQty')
+        axios.post('/getCart')
           .then((response)=> {
             this.totalQty = response.data.totalQty
             this.items = response.data.items
             this.sum = response.data.totalPrice
-            this.item_qty = Object.keys(response.data.items).length
+            if(response.data.items){
+              this.item_qty = Object.keys(response.data.items).length
+            }
             this.load = false
           })
           .catch(function (error) {

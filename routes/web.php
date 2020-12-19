@@ -20,12 +20,7 @@ Route::post('/bought','BooksController@bought');
 
 Route::get('shopcart','BooksController@shopCart')->name('shopcart');
 //shop_item.vue
-Route::post('getQty','BooksController@getCar');
-Route::post('get_items','BooksController@get_items');
-Route::post('get_sum','BooksController@get_sum');
-Route::post('get_itemqty','BooksController@get_itemQty');
-Route::post('remove_item','BooksController@removeItem');
-Route::post('minus_one','BooksController@minus_one');
+Route::post('getCart','BooksController@getCart');
 
 //checout
 Route::get('checkout','BooksController@checkout')->name('checkout');
